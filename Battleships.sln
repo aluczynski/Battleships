@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Battleships", "Battleships\Battleships.csproj", "{C416D067-08FB-4DC0-9D2A-8A69173335AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C416D067-08FB-4DC0-9D2A-8A69173335AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C416D067-08FB-4DC0-9D2A-8A69173335AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C416D067-08FB-4DC0-9D2A-8A69173335AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C416D067-08FB-4DC0-9D2A-8A69173335AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
