@@ -52,8 +52,8 @@ namespace Battleships
         private bool IsShipPlacementOutOfMap(int row, int column, Direction direction)
         {
             return direction == Direction.Horizontal
-                ? column + size <= Battleships.MAP_SIZE
-                : row + size <= Battleships.MAP_SIZE;
+                ? column + size <= Game.MAP_SIZE
+                : row + size <= Game.MAP_SIZE;
         }
 
         private bool IsShipPlacementInterferingWithOtherShip(int row,int col,Direction direction,State[,] map)
@@ -81,7 +81,7 @@ namespace Battleships
         
         private int RandomAvailableNumber()
         {
-            int randomNumber = rand.Next(0, Battleships.MAP_SIZE);
+            int randomNumber = rand.Next(0, Game.MAP_SIZE);
             return randomNumber;
         }
 
