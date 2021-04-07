@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace Battleships
 {
-    class Program
+    class Battleships
     {
-        private static int MAP_SIZE = 10;
-        private static int MAX_NUMBER_OF_HITS = 13;
-        private static int hitCounter = 0;
-        private static int[,] map = new int[MAP_SIZE,MAP_SIZE];
+        public static int MAP_SIZE = 10;
+        public static int MAX_NUMBER_OF_HITS = 13;
+        public static int score = 0;
+        public static State[,] map = new State[MAP_SIZE,MAP_SIZE];
         
-
+        
         private static Dictionary<char, int> columnMapper = new Dictionary<char, int>()
         {
             {'a',0},
@@ -28,7 +28,15 @@ namespace Battleships
         static void Main(string[] args)
         {
             FillNewMap();
-            map[4, 7] = 1;
+
+            Ship battleship = new Ship(5);
+            Ship destroyerA = new Ship(4);
+            Ship destroyerB = new Ship(4);
+            
+            battleship.Spawn(map);
+            destroyerA.Spawn(map);
+            destroyerB.Spawn(map);
+            
             while (!GameWon())
             {
                 DrawMap();
@@ -49,8 +57,9 @@ namespace Battleships
                 for (int j = 0; j < MAP_SIZE; j++)
                 {
                     //TODO change to switch/dictionary
-                    if(map[j,i] == 2) Console.Write(" O");
-                    else if (map[j, i] == 3) Console.Write(" X");
+                    if(map[j,i] == State.Miss) Console.Write(" O");
+                    else if (map[j, i] == State.Hit) Console.Write(" X");
+                    else if (map[j,i] == State.HiddenShip) Console.Write(" Z");
                     else Console.Write(" .");
                 }
 
@@ -64,14 +73,14 @@ namespace Battleships
             {
                 for (int j = 0; j < MAP_SIZE; j++)
                 {
-                    map[i, j] = 0;
+                    map[i, j] = State.Water;
                 }
             }
         }
 
         private static int TransformToColumnNumber(char column) => columnMapper[Char.ToLower(column)];
 
-        private static void GetTargetAndShoot()
+        public static void GetTargetAndShoot()
         {
             char[] input = Console.ReadLine().ToCharArray();
             if (input.Length > 2)
@@ -83,22 +92,21 @@ namespace Battleships
                 int column = TransformToColumnNumber(input[0]);
                 int row = (int)Char.GetNumericValue(input[1]);
 
-                if (map[column, row] == 1 || map[column,row] == 3)
+                if (map[column, row] == State.HiddenShip || map[column,row] == State.Hit)
                 {
-                    map[column, row] = 3;
+                    if (map[column, row] == State.HiddenShip) score++;
+                    map[column, row] = State.Hit;
                 }
                 else
                 {
-                    map[column, row] = 2;
+                    map[column, row] = State.Miss;
                 }
             }
         }
-
-        private static void CheckTarget()
-        {
-            
-        }
         
-        public static bool GameWon() => hitCounter >= MAX_NUMBER_OF_HITS;
+        public static bool GameWon() => score >= MAX_NUMBER_OF_HITS;
+
+        public static void IncreaseScore(int increaseBy) => score += increaseBy;
+        public static int ReturnScore() => score;
     }
 }
