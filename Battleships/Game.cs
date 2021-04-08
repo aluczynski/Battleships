@@ -35,8 +35,7 @@ namespace Battleships
                 Console.Write($"{i}|");
                 for (int j = 0; j < MAP_SIZE; j++)
                 {
-                    //TODO change to switch/dictionary
-                    if(map[j,i] == State.Miss) Console.Write(" O");
+                    if (map[j,i] == State.Miss) Console.Write(" O");
                     else if (map[j, i] == State.Hit) Console.Write(" X");
                     else Console.Write(" .");
                 }
@@ -56,7 +55,18 @@ namespace Battleships
             }
         }
 
-        private  int TransformToColumnNumber(char column) => columnMapper[Char.ToLower(column)];
+        private int TransformToColumnNumber(char column)
+        {
+            try
+            {
+                return columnMapper[Char.ToLower(column)];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Please only input values from A to J");
+                return -1;
+            }
+        }
 
         public void GetTargetAndShoot() => ShootTarget(GetTarget());
 
@@ -80,16 +90,19 @@ namespace Battleships
             int column = targetCoordinates[0];
             int row = targetCoordinates[1];
 
-            if (map[column, row] == State.HiddenShip || map[column,row] == State.Hit)
+            if (row > -1 && column > -1)
             {
-                if (map[column, row] == State.HiddenShip) IncreaseScore(1);
-                map[column, row] = State.Hit;
+                if (map[column, row] == State.HiddenShip || map[column, row] == State.Hit)
+                {
+                    if (map[column, row] == State.HiddenShip) IncreaseScore(1);
+                    map[column, row] = State.Hit;
+                }
+                else
+                {
+                    map[column, row] = State.Miss;
+                }
             }
-            else
-            {
-                map[column, row] = State.Miss;
-            }
-            
+
         }
         
         public bool GameWon() => score >= MAX_NUMBER_OF_HITS;

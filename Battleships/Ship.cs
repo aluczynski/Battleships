@@ -24,7 +24,7 @@ namespace Battleships
                 row = RandomAvailableNumber();
                 column = RandomAvailableNumber();
                 direction = RandomDirection();
-            } while (!IsShipPlacementPossible(row, column, direction, map));
+            } while (ShipPlacementNotPossible(row, column, direction, map));
 
             if (direction == Direction.Horizontal)
             {
@@ -43,17 +43,17 @@ namespace Battleships
 
         }
 
-        public bool IsShipPlacementPossible(int row,int col,Direction direction,State[,] map)
+        public bool ShipPlacementNotPossible(int row,int col,Direction direction,State[,] map)
         {
-            if (!IsShipPlacementOutOfMap(row, col, direction)) return false;
+            if (IsShipPlacementOutOfMap(row, col, direction)) return true;
             return IsShipPlacementInterferingWithOtherShip(row, col, direction, map);
         }
 
         private bool IsShipPlacementOutOfMap(int row, int column, Direction direction)
         {
             return direction == Direction.Horizontal
-                ? column + size <= Game.MAP_SIZE
-                : row + size <= Game.MAP_SIZE;
+                ? column + size >= Game.MAP_SIZE
+                : row + size >= Game.MAP_SIZE;
         }
 
         private bool IsShipPlacementInterferingWithOtherShip(int row,int col,Direction direction,State[,] map)
