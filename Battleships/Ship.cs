@@ -87,8 +87,9 @@ namespace Battleships
 
         private Direction RandomDirection()
         {
-            int randomNumber = rand.Next(1,2);
-            return randomNumber == 1 ? Direction.Horizontal : Direction.Vertical;
+            int random = rand.Next(1,100);
+            int mod = random % 2;
+            return mod == 1 ? Direction.Horizontal : Direction.Vertical;
         }
     }
 }
