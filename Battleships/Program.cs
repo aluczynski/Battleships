@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Battleships
 {
@@ -22,7 +21,7 @@ namespace Battleships
             while (!game.GameWon())
             {
                 game.DrawMap();
-                game.GetTargetAndShoot();
+                game.ShootTarget(game.GetTarget(Console.ReadLine()));
             }
             Console.WriteLine("Congrats!");
         }

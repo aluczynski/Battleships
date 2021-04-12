@@ -68,14 +68,12 @@ namespace Battleships
             }
         }
 
-        public void GetTargetAndShoot() => ShootTarget(GetTarget());
-
-        private int[] GetTarget()
+        public int[] GetTarget(string input)
         {
-            char[] inputChars = Console.ReadLine().ToCharArray();
+            char[] inputChars = input.ToCharArray();
             if (inputChars.Length > 2)
             {
-                Console.WriteLine("Invalid entry");
+                Console.WriteLine("Invalid entry, only input of 2 characters allowed");
             }
             
             int[] inputNumeric = new int[2];
@@ -108,6 +106,6 @@ namespace Battleships
         public bool GameWon() => score >= MAX_NUMBER_OF_HITS;
 
         public void IncreaseScore(int increaseBy) => score += increaseBy;
-        public int ReturnScore() => score;
+        public int Score() => score;
     }
 }

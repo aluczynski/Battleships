@@ -61,5 +61,40 @@ namespace Battleships
             
             Assert.Equal(4,shipFieldCounter);
         }
+
+        [Fact]
+        public void MakeWholeMapWater()
+        {
+            Game game = new Game();
+            game.FillNewMap();
+            bool isAllWater = true;
+
+            foreach (var coordinate in game.map)
+            {
+                if(coordinate != State.Water) isAllWater = false;
+            }
+
+            Assert.True(isAllWater);
+        }
+
+        [Fact]
+        public void ScoreIsZeroWhenGameStarts()
+        {
+            Game game = new Game();
+            int score = game.Score();
+            
+            Assert.Equal(0,score);
+        }
+
+        [Fact]
+        public void GetsTargetAndConvertsToIntArrayWhenGivenStringOfTwoChars()
+        {
+            Game game = new Game();
+            string input = "A0";
+            int[] expected = {0, 0};
+            
+            var actual = game.GetTarget(input);
+            Assert.Equal(expected,actual);
+        }
     }
 }
